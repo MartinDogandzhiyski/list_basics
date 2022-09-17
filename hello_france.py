@@ -1,3 +1,4 @@
+
 items = input().split("|")
 budget = float(input())
 starting_budget = budget
