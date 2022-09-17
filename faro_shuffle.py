@@ -1,3 +1,4 @@
+
 deck_shuffle = input().split(" ")
 number_of_shuffles = int(input())
 left_half = []
