@@ -1,16 +1,35 @@
-def gen_seq(range_info):
-    start, end = [int(x) for x in range_info.split(",")]
-    return set(range(start, end + 1))
+from collections import deque
+chocolates = [int(x) for x in input().split(", ")]
+cups_milk = deque([int(x) for x in input().split(", ")])
+milkshakes = 0
+milkshakes_done = False
+while chocolates and cups_milk:
+    if chocolates[-1] <= 0:
+        chocolates.pop()
+        continue
+    if cups_milk[0] <= 0:
+        cups_milk.popleft()
+        continue
+    if chocolates[-1] == cups_milk[0]:
+        milkshakes += 1
+        chocolates.pop()
+        cups_milk.popleft()
+    else:
+        chocolates[-1] -= 5
+        cups_milk.append(cups_milk.popleft())
+    if milkshakes == 5:
+        milkshakes_done = True
+        break
 
-n = int(input())
-best_intersection = set()
-current_intersection = set()
-for i in range(n):
-    line_parts = input().split("-")
-    first_set = gen_seq(line_parts[0])
-    second_set = gen_seq(line_parts[1])
-    current_intersection = first_set.intersection(second_set)
-    if len(current_intersection) > len(best_intersection):
-        best_intersection = current_intersection
-print(f"Longest intersection is [{', '.join(str(el) for el in best_intersection)}] with length"
-      f" {len(best_intersection)}")
+if milkshakes_done:
+    print("Great! You made all the chocolate milkshakes needed!")
+else:
+    print("Not enough milkshakes.")
+if chocolates:
+    print(f"Chocolate: {', '.join(str(x) for x in chocolates)}")
+else:
+    print("Chocolate: empty")
+if cups_milk:
+    print(f"Milk: {', '.join(str(x) for x in cups_milk)}")
+else:
+    print("Milk: empty")
