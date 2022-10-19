@@ -1,3 +1,4 @@
+
 parentheses = input()
 opening_brackets = []
 balanced = True
