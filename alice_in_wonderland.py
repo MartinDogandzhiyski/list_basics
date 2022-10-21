@@ -1,4 +1,5 @@
 
+
 def move_up(row, col):
     return row - 1, col
 
