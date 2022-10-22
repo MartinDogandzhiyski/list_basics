@@ -1,5 +1,4 @@
 
-
 events_list = input().split("|")
 max_energy = 100
 coins = 100
