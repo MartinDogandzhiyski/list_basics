@@ -1,0 +1,40 @@
+from collections import deque
+number_of_flights = int(input('Flights: '))
+flight_list_nums = []
+flights_matrix = []
+result = ''
+breakup_counter = 1
+
+for flight_num in range(number_of_flights):
+    flight_list_nums.append(flight_num)
+    flights_matrix.append(deque())
+
+flights_matrix[0] = deque(flight_list_nums)
+result += f"Breakup {breakup_counter}" + "\n" + f"- {' '.join(str(x) for x in flight_list_nums)}\n"
+print(result)
+
+for n in range(len(flights_matrix)):
+    result = ''
+    if len(flights_matrix[0]) == len(flights_matrix[-1]):
+        break
+    while len(flights_matrix[n]) > 1:
+        breakup_counter += 1
+        if n == len(flights_matrix) - 1:
+            break
+
+        flights_matrix[n + 1].appendleft(flights_matrix[n].pop())
+        if not len(flights_matrix[0]) == len(flights_matrix[-1]):
+            result = f"Breakup {breakup_counter}\n"
+            result += f"- {' '.join(str(x) for x in flights_matrix[0])}\n"
+        for f in range(1, len(flights_matrix)):
+            if len(flights_matrix[f]) > 0:
+                if len(flights_matrix[0]) == len(flights_matrix[-1]):
+                    break
+                result += f"- {' '.join(str(x) for x in (flights_matrix[f]))}\n"
+
+        print(result)
+result = f"Breakup {breakup_counter}\n- {flights_matrix[0][0]}\n"
+for n in range(1, len(flights_matrix)):
+    result += f"- {flights_matrix[n][0]}\n"
+if not number_of_flights == 1:
+    print(result)
